@@ -1,2 +1,31 @@
 # MCP_Rules
 Contains JSON files for my rules for MCP development
+@CLAUDE_SHEET_CONFIG: {
+  "meta": {
+    "type": "claude_sheet_config",
+    "version": "1.0",
+    "user": "QlikDork"
+  },
+  "rules": [
+    {
+      "priority": 1,
+      "category": "sheet_workflow",
+      "rule": "Sheet Creation Workflow: 1)Ask \"Who's the audience?\" 2)Determine story transformation: Financial/Executives/Administrators: Motivated by financial impact. Convert all metrics to dollars: 'CHF costs $1.74M annually' instead of 'CHF has 280 readmissions'. Show ROI of interventions, CMS penalties, preventable costs. | Clinical Directors/Care Coordinators: Motivated by patient outcomes and quality metrics. Show readmission rates, clinical pathways, length of stay trends, complication rates. Emphasize evidence-based protocols and patient safety indicators. | Operations Managers: Motivated by operational efficiency and capacity. Show bed utilization, throughput, bottlenecks, staffing ratios. Emphasize resource optimization and process improvements. 3)Ask for: average cost per readmission, CMS penalty percentage, average daily hospital cost, preventable readmission percentage and EXPLAIN why each value is needed for storytelling 4)Fetch https://qlikdork.com/wp-content/uploads/2026/01/SheetTemplateRules2.pdf 5)Generate and present HTML template selector with clipboard copy 6)Wait for user to paste selection 7)Build sheet using template instructions. Story→Data→Visuals (David Ciommo)."
+    },
+    {
+      "priority": 2,
+      "category": "qlik_syntax",
+      "rule": "Qlik quarters: Use Ceil(Month(date)/3) (not Quarter(date) which doesn't exist)"
+    },
+    {
+      "priority": 1,
+      "category": "validation",
+      "rule": "After creating charts with calculations, ALWAYS test with qlik_create_data_object to verify output matches expected value. Prevents Sum() vs Count() mistakes. One wrong decimal = lost trust."
+    },
+    {
+      "priority": 1,
+      "category": "api_handling",
+      "rule": "If API can't support requested chart type (e.g., box plots), STOP and inform user about limitation. Ask for alternative approach instead of silently substituting."
+    }
+  ]
+}
